@@ -1,0 +1,31 @@
+{
+  "vendor_rules": {
+    "ASDA": "Joint",
+    "JOHN": "Joint",
+    "UBER": "Joint",
+    "MARKS": "Joint",
+    "BOOTS": "Joint",
+    "HOLLAND": "Joint",
+    "RITUALS": "Joint",
+    "AELIA": "Joint",
+    "PRET": "Joint",
+    "MOONPIG": "Joint",
+    "M&S": "Joint",
+    "TESCO": "Joint",
+    "TFL": "Person B",
+    "WM": "Joint",
+    "DOJO*DIXIEMIA": "Joint",
+    "PREZZEMOLO": "Joint",
+    "ZETTLE": "Person B",
+    "DOJO*KOKORO": "Joint",
+    "SAKANA": "Joint",
+    "SAINSBURY'S": "Joint",
+    "CITIPARK": "Person B",
+    "ITSU": "Joint",
+    "MAMAS": "Joint",
+    "CURRYS": "Joint",
+    "WWW.ELIOR.CO.UK": "Person B",
+    "NEW": "Person B",
+    "SAMBAL": "Person B"
+  }
+}
