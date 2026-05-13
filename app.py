@@ -30,6 +30,36 @@ def get_local_ip():
     except Exception:
         return "localhost"
 
+def check_password():
+    """Returns `True` if the user had the correct password."""
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        # Check against Streamlit secrets if available, otherwise fallback to default
+        correct_password = "password123"
+        if "APP_PASSWORD" in st.secrets:
+            correct_password = st.secrets["APP_PASSWORD"]
+            
+        if st.session_state["password"] == correct_password:
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # don't store password
+        else:
+            st.session_state["password_correct"] = False
+
+    if "password_correct" not in st.session_state:
+        # First run, show input for password.
+        st.title("🔒 Login Required")
+        st.text_input("Password", type="password", on_change=password_entered, key="password")
+        return False
+    elif not st.session_state["password_correct"]:
+        # Password not correct, show input + error.
+        st.title("🔒 Login Required")
+        st.text_input("Password", type="password", on_change=password_entered, key="password")
+        st.error("😕 Password incorrect")
+        return False
+    else:
+        # Password correct.
+        return True
+
 
 def initialize_session_state():
     """Initialize Streamlit session state variables."""
@@ -453,7 +483,6 @@ def summary_tab():
         - Difference: £{abs(settlement):,.2f}
         
         *Person {'B' if settlement > 0 else 'A'} pays Person {'A' if settlement > 0 else 'B'} £{abs(settlement):,.2f} to balance the spending.*
-        """)
         - Net Delta: {'+' if -settlement > 0 else ''}£{-settlement:,.2f}
         
         *Note: Negative spending (refunds) correctly reduces both the paid amount and responsibility.*
@@ -499,6 +528,9 @@ def main():
         layout="wide",
         initial_sidebar_state="collapsed"
     )
+    
+    if not check_password():
+        return
     
     # Custom CSS for mobile-friendly design
     st.markdown("""
